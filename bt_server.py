@@ -8,7 +8,6 @@ server_sock.listen(1)
 
 port = server_sock.getsockname()[1]
 
-# TODO Figure out whether to use MAC addresses or UUID for identifying the connections.
 uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 
 advertise_service( server_sock, "SampleServer",
@@ -27,7 +26,7 @@ try:
     while True:
         data = client_sock.recv(1024)
         if len(data) == 0: break
-        print("received [%s]" % data)
+        print "received [%s]" % data
 
         if data == "x":
             client_sock.sock.send("Hello mr. Phone")
