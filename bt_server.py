@@ -28,6 +28,9 @@ try:
         data = client_sock.recv(1024)
         if len(data) == 0: break
         print("received [%s]" % data)
+
+        if data == "x":
+            client_sock.sock.send("Hello mr. Phone")
 except IOError:
     pass
 
