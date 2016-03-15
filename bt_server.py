@@ -21,22 +21,9 @@ print("Waiting for connection on RFCOMM channel %d" % port)
 client_sock, client_info = server_sock.accept()
 print("Accepted connection from ", client_info)
 
-try:
-    sent = 0
-    print "Trying to send"
-
-    while sent < 100:
-        sent = client_sock.sock.send("Halla")
-
-        if sent == 0:
-            raise RuntimeError("socket connection broken")
-        total = total + sent
-        print total
-
-        sleep(1)
-
-except IOError:
-    pass
+for _ in range(1,10):
+    print "sending message"
+    send_message("Hello Simon...")
 
 print("disconnected")
 
@@ -45,3 +32,10 @@ server_sock.close()
 print("all done")
 
 # TODO Make a file reader to read in the raw OBD2-data and send them to the bluetooth socket
+def send_message(message):
+    totalsent = 0
+    while totalsent < len(message):
+        sent = client_sock.sock.send(msg[totalsent:])
+        if sent == 0:
+            raise RuntimeError("socket connection broken")
+        totalsent = totalsent + sent
