@@ -2,10 +2,10 @@ from bluetooth import *
 from time import sleep
 
 # DISCLAIMER - if you do not have pybluez installed there will be a lot of red lines in the following code
-def send_message(message):
+def send_message(message_socket, message):
     totalsent = 0
     while totalsent < len(message):
-        sent = client_sock.sock.send(msg[totalsent:])
+        sent = message_socket.send(msg[totalsent:])
         if sent == 0:
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
@@ -30,7 +30,7 @@ print("Accepted connection from ", client_info)
 
 for _ in range(1,10):
     print "sending message"
-    send_message("Hello Simon...")
+    send_message(client_sock, "Hello Simon...")
 
 print("disconnected")
 
