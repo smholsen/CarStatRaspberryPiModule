@@ -21,18 +21,17 @@ print("Waiting for connection on RFCOMM channel %d" % port)
 client_sock, client_info = server_sock.accept()
 print("Accepted connection from ", client_info)
 
-
-# Right now it is receiving data - change the "sock.recv" if you want it to send
 try:
     sent = 0
+    print "Trying to send"
 
     while sent < 100:
         sent = client_sock.sock.send("Halla")
 
         if sent == 0:
             raise RuntimeError("socket connection broken")
-        totalsent = totalsent + sent
-        print totalsent
+        total = total + sent
+        print total
 
         sleep(1)
 
