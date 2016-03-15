@@ -1,4 +1,5 @@
 from bluetooth import *
+from time import sleep
 
 # DISCLAIMER - if you do not have pybluez installed there will be a lot of red lines in the following code
 
@@ -33,7 +34,7 @@ try:
         totalsent = totalsent + sent
         print totalsent
 
-        time.sleep(1)
+        sleep(1)
 
 except IOError:
     pass
