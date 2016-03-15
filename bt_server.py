@@ -23,13 +23,18 @@ print("Accepted connection from ", client_info)
 
 # Right now it is receiving data - change the "sock.recv" if you want it to send
 try:
-    while True:
-        data = client_sock.recv(1024)
-        if len(data) == 0: break
-        print "received [%s]" % data
+    sent = 0
 
-        if data == "x":
-            client_sock.sock.send("Hello mr. Phone")
+    while sent < 100:
+        sent = client_sock.sock.send("Halla")
+
+        if sent == 0:
+            raise RuntimeError("socket connection broken")
+        totalsent = totalsent + sent
+        print totalsent
+
+        time.sleep(1)
+
 except IOError:
     pass
 
