@@ -2,6 +2,13 @@ from bluetooth import *
 from time import sleep
 
 # DISCLAIMER - if you do not have pybluez installed there will be a lot of red lines in the following code
+def send_message(message):
+    totalsent = 0
+    while totalsent < len(message):
+        sent = client_sock.sock.send(msg[totalsent:])
+        if sent == 0:
+            raise RuntimeError("socket connection broken")
+        totalsent = totalsent + sent
 
 server_sock=BluetoothSocket( RFCOMM )
 server_sock.bind(("",PORT_ANY))
@@ -32,10 +39,3 @@ server_sock.close()
 print("all done")
 
 # TODO Make a file reader to read in the raw OBD2-data and send them to the bluetooth socket
-def send_message(message):
-    totalsent = 0
-    while totalsent < len(message):
-        sent = client_sock.sock.send(msg[totalsent:])
-        if sent == 0:
-            raise RuntimeError("socket connection broken")
-        totalsent = totalsent + sent
