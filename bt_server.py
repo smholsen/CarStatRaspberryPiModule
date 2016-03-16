@@ -6,6 +6,7 @@ def send_message(message_socket, message):
     totalsent = 0
     while totalsent < len(message):
         sent = message_socket.send(message[totalsent:])
+        print "Sent: " + message[totalsent:]
         if sent == 0:
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
