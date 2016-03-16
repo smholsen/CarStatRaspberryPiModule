@@ -29,7 +29,9 @@ print("Waiting for connection on RFCOMM channel %d" % port)
 client_sock, client_info = server_sock.accept()
 print("Accepted connection from ", client_info)
 
-send_message(client_sock, "Hello Moto!\n")
+for _ in range(1,10):
+    send_message(client_sock, "Mems!\n")
+    time.sleep(200)
 
 print("disconnected")
 
