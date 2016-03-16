@@ -30,7 +30,7 @@ client_sock, client_info = server_sock.accept()
 print("Accepted connection from ", client_info)
 
 for _ in range(1,10):
-    send_message(client_sock, "Mems!\n")
+    send_message(client_sock, "69")
     time.sleep(200)
 
 print("disconnected")
