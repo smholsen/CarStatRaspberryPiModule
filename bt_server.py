@@ -5,9 +5,8 @@ from time import sleep
 def send_message(message_socket, message):
     totalsent = 0
     while totalsent < len(message):
-        data = bytearray(message[totalsent:])
-        sent = message_socket.send(data)
-        print "Sent: " + data
+        sent = message_socket.send(message[totalsent:])
+        print "Sent: " + message[totalsent:]
         if sent == 0:
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
