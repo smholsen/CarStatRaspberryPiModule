@@ -1,4 +1,4 @@
-from bluetooth import *
+#from bluetooth import *
 import time
 import json
 
@@ -55,6 +55,36 @@ def send_json_data(socket):
                     time.sleep(0.01)
                     i += 1
 
+def send_breaking_info(socket):
+    with open('Border_Roads.json', 'r+') as file:
+        for line in file:
+            data = json.loads(line)
+
+            if data['name'] == 'vehicle_speed':
+                # Send JSON data
+                for i in range(0, 10):
+                    speed = int(data['value'])
+                    speed_ms = speed * 0.44
+                    speed_kmh = speed * 1.6
+
+                    dry = breaking_distance(speed_ms, 0.9)
+                    wet = breaking_distance(speed_ms, 0.4)
+                    snow = breaking_distance(speed_ms, 0.2)
+                    ice = breaking_distance(speed_ms, 0.15)
+
+                    dictionary = {'speed_kmh' : speed_kmh, 'dry' : dry, 'wet': wet, 'snow' : snow, 'ice' : ice}
+
+                    json_speeds = json.dumps(dictionary)
+
+                    if i == 0:
+                        send_message(socket, line)
+                        print '\ntimestamp' + str(data['timestamp']) + '\nfart :' + str(speed_kmh) + '\nTorr asfalt: ' + str(dry) + '\nBlot asfalt '+ str(wet) + '\nSnofore: ' + str(snow) + '\nIsfore: ' + str(ice)
+
+                    time.sleep(0.01)
+                    i += 1
+
+def breaking_distance(speed, koff):
+    return (speed**2)/(2*koff*9.81)
 
 # Securely close the socket
 def close(client_socket):
