@@ -72,7 +72,7 @@ def send_breaking_info(socket):
                     json_speeds = json.dumps(dictionary)
 
                     if i == 0:
-                        send_message(socket, line)
+                        send_message(socket, json_speeds)
                         print '\ntimestamp' + str(data['timestamp']) + '\nfart :' + str(speed_kmh) + '\nTorr asfalt: ' + str(dry) + '\nBlot asfalt '+ str(wet) + '\nSnofore: ' + str(snow) + '\nIsfore: ' + str(ice)
 
                     time.sleep(0.01)
