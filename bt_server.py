@@ -48,7 +48,7 @@ def send_json_data(socket):
             if data['name'] == 'vehicle_speed':
                 # Send JSON data
                 send_message(socket, line)
-                print('Sent data @ {}: {}'.format(stamp, data))
+                print('Sent data: {}'.format(data))
                 time.sleep(0.01)
 
 
