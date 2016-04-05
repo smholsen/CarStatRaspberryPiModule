@@ -1,7 +1,12 @@
 from bluetooth import *
 from time import sleep
 
-# DISCLAIMER - if you do not have pybluez installed there will be a lot of red lines in the following code
+UUID = "00000000-0000-1000-8000-00805F9B34FB"
+
+server_sock = None
+port = None
+
+
 def send_message(message_socket, message):
     totalsent = 0
     while totalsent < len(message):
@@ -11,32 +16,48 @@ def send_message(message_socket, message):
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
 
-server_sock=BluetoothSocket( RFCOMM )
-server_sock.bind(("",PORT_ANY))
-server_sock.listen(1)
 
-port = server_sock.getsockname()[1]
+# Unpack the JSON object and send it
+def send_json(socket, json_obj):
+    data = json_obj
 
-uuid = "00000000-0000-1000-8000-00805F9B34FB"
+    send_message(socket, data)
 
-advertise_service( server_sock, "SampleServer",
-                   service_id=uuid,
-                   service_classes=[uuid, SERIAL_PORT_CLASS]
-                    )
 
-print("Waiting for connection on RFCOMM channel %d" % port)
+# Initialize data connection
+def init(name):
+    global server_sock
+    global port
 
-client_sock, client_info = server_sock.accept()
-print("Accepted connection from ", client_info)
+    server_sock = BluetoothSocket( RFCOMM )
+    server_sock.bind(("",PORT_ANY))
+    server_sock.listen(1)
 
-for _ in range(1,10):
-    send_message(client_sock, "69")
-    time.sleep(200)
+    port = server_sock.getsockname()[1]
 
-print("disconnected")
+    advertise_service( server_sock, name,
+                   service_id=UUID,
+                   service_classes=[UUID, SERIAL_PORT_CLASS])
 
-client_sock.close()
-server_sock.close()
-print("all done")
+    print("Waiting for connection on RFCOMM channel %d" % port)
+    client_sock, client_info = server_sock.accept()
+    print("Accepted connection from ", client_info)
+    return client_sock
+
+
+def close(client_socket):
+    global server_sock
+
+    client_socket.close()
+    server_sock.close()
+
+
+
+if __name__ == "__main__":
+    client_socket = init("BluetoothServer")  #
+
+
+    close(client_socket)
+    print("Program shut down successfully")
 
 # TODO Make a file reader to read in the raw OBD2-data and send them to the bluetooth socket
