@@ -46,6 +46,7 @@ def send_json_data(socket):
             data = json.loads(line)
 
             if data['name'] == 'vehicle_speed':
+
                 # Send JSON data
                 for i in range(0, 100):
                     if i == 0:
