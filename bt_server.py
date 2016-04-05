@@ -59,21 +59,20 @@ def send_breaking_info(socket):
                 # Send JSON data
                 for i in range(0, 10):
                     speed = int(data['value'])
-                    speed_ms = speed * 0.44
-                    speed_kmh = speed * 1.6
+                    speed_ms = speed * 0.277
 
                     dry = breaking_distance(speed_ms, 0.9)
                     wet = breaking_distance(speed_ms, 0.4)
                     snow = breaking_distance(speed_ms, 0.2)
                     ice = breaking_distance(speed_ms, 0.15)
 
-                    dictionary = {'speed_kmh' : speed_kmh, 'dry' : dry, 'wet': wet, 'snow' : snow, 'ice' : ice}
+                    dictionary = {'speed_kmh' : speed, 'dry' : dry, 'wet': wet, 'snow' : snow, 'ice' : ice}
 
                     json_speeds = json.dumps(dictionary)
 
                     if i == 0:
                         send_message(socket, json_speeds)
-                        print '\ntimestamp' + str(data['timestamp']) + '\nfart :' + str(speed_kmh) + '\nTorr asfalt: ' + str(dry) + '\nBlot asfalt '+ str(wet) + '\nSnofore: ' + str(snow) + '\nIsfore: ' + str(ice)
+                        print '\ntimestamp' + str(data['timestamp']) + '\nfart :' + str(speed) + '\nTorr asfalt: ' + str(dry) + '\nBlot asfalt '+ str(wet) + '\nSnofore: ' + str(snow) + '\nIsfore: ' + str(ice)
 
                     time.sleep(0.01)
                     i += 1
