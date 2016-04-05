@@ -28,8 +28,8 @@
       <file leaf-file-name="bt_server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bt_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8603491">
-              <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.8416459">
+              <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -364,7 +364,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459850269985</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added json reader/sender">
+      <created>1459850545153</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1459850545153</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -454,8 +460,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bt_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8603491">
-          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.8416459">
+          <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
