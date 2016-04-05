@@ -48,12 +48,7 @@ def send_json_data(socket):
             if data['name'] == 'vehicle_speed':
 
                 # Send JSON data
-                for i in range(0, 100):
-                    if i == 0:
-                        send_message(socket, line)
-
-                    time.sleep(0.01)
-                    i += 1
+                send_message(socket, line)
 
 def send_breaking_info(socket):
     with open('Border_Roads.json', 'r+') as file:
