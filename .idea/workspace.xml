@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/bt_server.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.9471831">
-              <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+              <caret line="114" column="45" selection-start-line="114" selection-start-column="45" selection-end-line="114" selection-end-column="45" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -574,7 +574,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459858349079</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="removed JSON objects&#10;">
+      <created>1459859161116</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1459859161116</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -675,7 +681,7 @@
     <entry file="file://$PROJECT_DIR$/bt_server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9471831">
-          <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+          <caret line="114" column="45" selection-start-line="114" selection-start-column="45" selection-end-line="114" selection-end-column="45" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>

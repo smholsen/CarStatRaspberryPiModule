@@ -109,5 +109,8 @@ def run():
 
 if __name__ == "__main__":
     while True:
-        run()
+        try:
+            run()
+        except BluetoothError:
+            print("Connection reset by peer")
 
