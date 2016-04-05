@@ -1,5 +1,6 @@
 from bluetooth import *
 from time import sleep
+from json import *
 
 UUID = "00000000-0000-1000-8000-00805F9B34FB"
 
@@ -15,13 +16,6 @@ def send_message(message_socket, message):
         if sent == 0:
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
-
-
-# Unpack the JSON object and send it
-def send_json(socket, json_obj):
-    data = json_obj
-
-    send_message(socket, data)
 
 
 # Initialize data connection
@@ -45,6 +39,23 @@ def init(name):
     return client_sock
 
 
+# Read JSON data
+def send_json_data(socket):
+    with open('Border_Roads.json', 'r+') as file:
+        for line in file:
+            data = json.loads(line)
+
+            # Timestamp of JSON data
+            stamp = time.gmtime(data['timestamp'])
+
+            if data['name'] == 'vehicle_speed':
+                # Send JSON data
+                send_message(socket, data)
+                print('Sent data @ {}: {}'.format(stamp, data))
+                time.sleep(0.01)
+
+
+# Securely close the socket
 def close(client_socket):
     global server_sock
 
@@ -52,12 +63,8 @@ def close(client_socket):
     server_sock.close()
 
 
-
 if __name__ == "__main__":
     client_socket = init("BluetoothServer")  #
-
-
+    send_json_data(client_socket)
     close(client_socket)
     print("Program shut down successfully")
-
-# TODO Make a file reader to read in the raw OBD2-data and send them to the bluetooth socket
