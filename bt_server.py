@@ -44,14 +44,16 @@ def send_json_data(socket):
     with open('Border_Roads.json', 'r+') as file:
         for line in file:
             data = json.loads(line)
+            datajson = json.dumps(data)
+
 
             # Timestamp of JSON data
             stamp = time.gmtime(data['timestamp'])
 
             if data['name'] == 'vehicle_speed':
                 # Send JSON data
-                print(data)
-                send_message(socket, data)
+                print(datajson)
+                send_message(socket, datajson)
                 print('Sent data @ {}: {}'.format(stamp, data))
                 time.sleep(0.01)
 
