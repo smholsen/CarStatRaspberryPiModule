@@ -51,7 +51,8 @@ def send_json_data(socket):
                 for i in range(0, 100):
                     if i == 0:
                         send_message(socket, line)
-                        time.sleep(0.01)
+
+                    time.sleep(0.01)
                     i += 1
 
 
