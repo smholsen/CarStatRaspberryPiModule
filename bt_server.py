@@ -45,12 +45,8 @@ def send_json_data(socket):
         for line in file:
             data = json.loads(line)
 
-            # Timestamp of JSON data
-            stamp = time.gmtime(data['timestamp'])
-
             if data['name'] == 'vehicle_speed':
                 # Send JSON data
-                print(line)
                 send_message(socket, line)
                 print('Sent data @ {}: {}'.format(stamp, data))
                 time.sleep(0.01)
