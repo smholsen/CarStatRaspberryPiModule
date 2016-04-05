@@ -101,7 +101,7 @@ def close(client_socket):
 
 
 if __name__ == "__main__":
-    client_socket = init("BluetoothServer")  #
+    client_socket = init("BluetoothServer")
     send_json_data(client_socket)
     close(client_socket)
     print("Program shut down gracefully")
