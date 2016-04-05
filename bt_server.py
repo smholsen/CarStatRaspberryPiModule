@@ -12,7 +12,7 @@ def send_message(message_socket, message):
     totalsent = 0
     while totalsent < len(message):
         sent = message_socket.send(message[totalsent:])
-        print "Sent: " + message[totalsent:]
+        print("Sent: " + message[totalsent:])
         if sent == 0:
             raise RuntimeError("socket connection broken")
         totalsent = totalsent + sent
@@ -50,6 +50,7 @@ def send_json_data(socket):
 
             if data['name'] == 'vehicle_speed':
                 # Send JSON data
+                print(data)
                 send_message(socket, data)
                 print('Sent data @ {}: {}'.format(stamp, data))
                 time.sleep(0.01)
