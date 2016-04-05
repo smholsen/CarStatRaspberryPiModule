@@ -1,11 +1,32 @@
-#from bluetooth import *
-import time
+from bluetooth import *
 import json
+import time
 
 UUID = "00000000-0000-1000-8000-00805F9B34FB"
 
 server_sock = None
 port = None
+
+json_data = {
+    "speedValue": 0,
+    "fuelConsumption": 0,
+    "distance": 0,
+    "friction": {
+        "wet": 0,
+        "dry": 0,
+        "snow": 0,
+        "ice": 0
+    }
+}
+
+
+# Converts between dataset names and data
+def get_json_name_from_data(data):
+    return {
+        'fuel_consumed_since_restart': 'fuelConsumption',
+        'vehicle_speed': 'speedValue',
+        'odometer': 'distance'
+    }.get(data, 'Empty')
 
 
 def send_message(message_socket, message):
@@ -39,46 +60,37 @@ def init(name):
     return client_sock
 
 
+def update_json_data(data):
+    global json_data
+
+    dataset_name = get_json_name_from_data(data['name'])
+
+    if dataset_name in json_data:
+        json_data[dataset_name] = data['value']
+
+        if dataset_name == "speedValue":
+            json_data["friction"]["wet"] = breaking_distance(data['value'], 0.4)
+            json_data["friction"]["dry"] = breaking_distance(data['value'], 0.9)
+            json_data["friction"]["snow"] = breaking_distance(data['value'], 0.2)
+            json_data["friction"]["ice"] = breaking_distance(data['value'], 0.15)
+
+
+def breaking_distance(speed, c):
+    return ((speed * 0.277)**2) / (2 * c * 9.81)
+
+
 # Read JSON data
-def send_json_data(socket):
+def send_json_data(socket=None):
+    global json_data
+
     with open('Border_Roads.json', 'r+') as file:
         for line in file:
             data = json.loads(line)
+            update_json_data(data)
+            updated_json = json.dumps(json_data)
+            send_message(socket, updated_json)
+            time.sleep(0.01)
 
-            if data['name'] == 'vehicle_speed':
-
-                # Send JSON data
-                send_message(socket, line)
-
-def send_breaking_info(socket):
-    with open('Border_Roads.json', 'r+') as file:
-        for line in file:
-            data = json.loads(line)
-
-            if data['name'] == 'vehicle_speed':
-                # Send JSON data
-                for i in range(0, 10):
-                    speed = int(data['value'])
-                    speed_ms = speed * 0.277
-
-                    dry = breaking_distance(speed_ms, 0.9)
-                    wet = breaking_distance(speed_ms, 0.4)
-                    snow = breaking_distance(speed_ms, 0.2)
-                    ice = breaking_distance(speed_ms, 0.15)
-
-                    dictionary = {'speed_kmh' : speed, 'dry' : dry, 'wet': wet, 'snow' : snow, 'ice' : ice}
-
-                    json_speeds = json.dumps(dictionary)
-
-                    if i == 0:
-                        send_message(socket, json_speeds)
-                        print '\ntimestamp' + str(data['timestamp']) + '\nfart :' + str(speed) + '\nTorr asfalt: ' + str(dry) + '\nBlot asfalt '+ str(wet) + '\nSnofore: ' + str(snow) + '\nIsfore: ' + str(ice)
-
-                    time.sleep(0.01)
-                    i += 1
-
-def breaking_distance(speed, koff):
-    return (speed**2)/(2*koff*9.81)
 
 # Securely close the socket
 def close(client_socket):
@@ -92,4 +104,4 @@ if __name__ == "__main__":
     client_socket = init("BluetoothServer")  #
     send_json_data(client_socket)
     close(client_socket)
-    print("Program shut down successfully")
+    print("Program shut down gracefully")
