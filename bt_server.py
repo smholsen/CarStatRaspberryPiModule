@@ -83,7 +83,7 @@ def breaking_distance(speed, c):
 def send_json_data(socket=None):
     global json_data
 
-    with open('Border_Roads.json', 'r+') as file:
+    with open('~/Border_Roads.json', 'r+') as file:
         for line in file:
             data = json.loads(line)
             update_json_data(data)
