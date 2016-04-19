@@ -8,6 +8,7 @@ server_sock = None
 port = None
 
 json_data = {
+    "timestamp": 0,
     "speedValue": 0,
     "fuelConsumption": 0,
     "distance": 0,
@@ -25,7 +26,8 @@ def get_json_name_from_data(data):
     return {
         'fuel_consumed_since_restart': 'fuelConsumption',
         'vehicle_speed': 'speedValue',
-        'odometer': 'distance'
+        'odometer': 'distance',
+        'timestamp': 'timestamp'
     }.get(data, 'Empty')
 
 
