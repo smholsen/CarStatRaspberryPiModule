@@ -27,7 +27,6 @@ def get_json_name_from_data(data):
         'fuel_consumed_since_restart': 'fuelConsumption',
         'vehicle_speed': 'speedValue',
         'odometer': 'distance',
-        'timestamp': 'timestamp'
     }.get(data, 'Empty')
 
 
@@ -66,6 +65,7 @@ def update_json_data(data):
     global json_data
 
     dataset_name = get_json_name_from_data(data['name'])
+    json_data["timestamp"] = data['timestamp']
 
     if dataset_name in json_data:
         json_data[dataset_name] = data['value']
